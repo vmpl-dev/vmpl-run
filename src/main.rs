@@ -10,7 +10,7 @@ struct Opt {
     run: bool,
 
     #[structopt(short = "h", long = "hotcalls", help = "Enable hotcalls")]
-    hotcalls: bool,
+    hotcalls: Option<String>,
 
     #[structopt(short = "e", long = "enable-vmpl", help = "Enable VMPL")]
     enable_vmpl: bool,
@@ -74,6 +74,11 @@ fn run_program(opt: &Opt) -> std::io::Result<()> {
 
         // 设置 LIBZPHOOK
         command.env("LIBZPHOOK", "libzphook_basic.so");
+
+        // 设置 HOTCALLS_CONFIG_FILE
+        if let Some(hotcalls) = &opt.hotcalls {
+            command.env("HOTCALLS_CONFIG_FILE", hotcalls);
+        }
 
         // 设置 dunify.c 中定义的环境变量
         if opt.enable_vmpl {
