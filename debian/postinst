@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+# 更新动态链接器缓存
+ldconfig
+
+# 设置 mmap_min_addr 为 0（需要 root 权限）
+if [ -w /proc/sys/vm/mmap_min_addr ]; then
+    echo 0 > /proc/sys/vm/mmap_min_addr
+fi
+
+#DEBHELPER# 

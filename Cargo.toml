@@ -2,8 +2,44 @@
 name = "vmpl-run"
 version = "0.1.0"
 edition = "2021"
+authors = ["Benshan Mei <mbs2021@163.com>"]
+description = "A tool to run programs with VMPL support"
+license = "MIT"
+repository = "https://github.com/vmpl-dev/vmpl-run"
+documentation = "https://docs.rs/vmpl-run"
+readme = "README.md"
+keywords = ["amd sev-snp", "vmpl", "security", "isolation", "virtualization"]
+categories = ["command-line-utilities", "virtualization"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# published to crates.io
+publish = true
 
 [dependencies]
-structopt = "0.3.26"
+structopt = "0.3"
+libc = "0.2"
+
+[features]
+default = []
+hotcalls = []
+
+[package.metadata.deb]
+maintainer = "Benshan Mei <mbs2021@163.com>"
+copyright = "2024, Benshan Mei"
+license-file = ["LICENSE", "4"]
+depends = "$auto"
+section = "utils"
+priority = "optional"
+assets = [
+    # 二进制文件
+    ["target/release/vmpl-run", "usr/bin/", "755"],
+    
+    # 文档
+    ["README.md", "usr/share/doc/vmpl-run/README", "644"],
+]
+maintainer-scripts = "debian/"
+systemd-units = { enable = false }
+conf-files = []
+extended-description = """
+A tool to run programs with VMPL support.
+Provides VMPL process and thread isolation capabilities.
+"""
