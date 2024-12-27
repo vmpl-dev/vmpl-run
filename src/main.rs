@@ -110,9 +110,6 @@ fn run_program(opt: &Opt) -> std::io::Result<()> {
         command.env("LD_PRELOAD", preload);
         
         // 设置其他可选环境变量
-        if opt.hotcalls {
-            command.env("HOTCALLS_ENABLED", "1");
-        }
 
         if opt.debug {
             command.env("VMPL_DEBUG_ENABLED", "1");
