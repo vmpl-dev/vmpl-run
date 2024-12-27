@@ -8,7 +8,7 @@ license = "MIT"
 repository = "https://github.com/vmpl-dev/vmpl-run"
 documentation = "https://docs.rs/vmpl-run"
 readme = "README.md"
-keywords = ["amd sev-snp", "vmpl", "security", "isolation", "virtualization"]
+keywords = ["sev-snp", "vmpl", "security", "isolation", "virtualization"]
 categories = ["command-line-utilities", "virtualization"]
 
 # published to crates.io
