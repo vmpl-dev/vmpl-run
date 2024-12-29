@@ -1,6 +1,6 @@
 [package]
 name = "vmpl-run"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Benshan Mei <mbs2021@163.com>"]
 description = "A tool to run programs with VMPL support"
@@ -15,8 +15,11 @@ categories = ["command-line-utilities", "virtualization"]
 publish = true
 
 [dependencies]
-structopt = "0.3"
+structopt = { version = "0.3.26", features = ["color", "wrap_help", "doc", "paw", "suggestions", "yaml"] }
 libc = "0.2"
+which = "7.0.1"
+rustyline = "9.1"
+lazy_static = "1.5.0"
 
 [features]
 default = []
