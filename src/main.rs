@@ -20,6 +20,10 @@ struct Opt {
     #[structopt(short = "c", long = "preload", help = "Use preload library")]
     preload: bool,
 
+    // libzhook
+    #[structopt(short = "z", long = "libzhook", help = "Use libzhook")]
+    libzhook: bool,
+
     #[structopt(short = "h", long = "hotcalls", help = "Enable hotcalls")]
     hotcalls: Option<String>,
 
@@ -96,11 +100,13 @@ fn run_program(opt: &Opt) -> std::io::Result<()> {
 
         // 设置 silent 模式
         if opt.silent {
-            command.env("VMPL_SILENT", "1");
+            command.env("VMPL_LOG_LEVEL", "error");
         }
 
         // 设置 LIBZPHOOK
-        command.env("LIBZPHOOK", "libzphook_basic.so");
+        if opt.libzhook {
+            command.env("LIBZPHOOK", "libzphook_basic.so");
+        }
 
         // 设置 HOTCALLS_CONFIG_FILE
         if let Some(hotcalls) = &opt.hotcalls {
@@ -130,11 +136,13 @@ fn run_program(opt: &Opt) -> std::io::Result<()> {
 
         // 设置 LD_PRELOAD
         if opt.preload {
-            // 使用 libdunify.so 和 libzpoline.so
-            command.env("LD_PRELOAD", "libdunify.so:libzpoline.so");
-        } else {
-            // 仅使用libzpoline.so
-            command.env("LD_PRELOAD", "libzpoline.so");
+            if opt.libzhook {
+                // 使用 libdunify.so 和 libzpoline.so
+                command.env("LD_PRELOAD", "libdunify.so:libzpoline.so");
+            } else {
+                // 仅使用libdunify.so
+                command.env("LD_PRELOAD", "libdunify.so");
+            }
         }
         
         // 设置其他可选环境变量
