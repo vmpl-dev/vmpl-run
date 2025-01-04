@@ -1,6 +1,6 @@
 [package]
 name = "vmpl-run"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 authors = ["Benshan Mei <mbs2021@163.com>"]
 description = "A tool to run programs with VMPL support"
@@ -20,6 +20,7 @@ libc = "0.2"
 which = "7.0.1"
 rustyline = "9.1"
 lazy_static = "1.5.0"
+rustyline-derive = "0.11.0"
 
 [features]
 default = []
